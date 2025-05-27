@@ -1,32 +1,18 @@
 pipeline {
-    agent {
-        docker { image 'docker:latest' }
-    }
-
-    environment {
-        IMAGE_NAME = 'flask-webapp'
-        IMAGE_TAG = 'latest'
-        DOCKER_REGISTRY = 'https://registry.hub.docker.com'
-    }
-
+    agent any
     stages {
-        stage('Clone Repository') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                    docker.build("flask-webapp:latest")
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry("https://${DOCKER_REGISTRY}", 'docker-credentials-id') {
-                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
+                    docker.withRegistry("https://registry.hub.docker.com", 'docker-credentials-id') {
+                        docker.image("flask-webapp:latest").push()
                     }
                 }
             }
