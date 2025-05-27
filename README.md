@@ -33,3 +33,12 @@ Push events from GitHub trigger Jenkins builds via webhooks, ensuring the Docker
 - Jenkins executes the pipeline:
   - Builds the Docker image.
   - Pushes the image to Docker Hub: [`obsidianmaximus/flask-webapp`](https://hub.docker.com/r/obsidianmaximus/flask-webapp).
+ 
+
+```
++-----------+        webhook        +---------+      docker build/push    +-----------+
+|           |  -------------------> |         |  -----------------------> |           |
+|  GitHub   |                       | Jenkins |                           | Docker Hub|
+| Repository| <---(push event)----> | Pipeline| <----(image:latest)-----> |  Registry |
++-----------+                       +---------+                           +-----------+
+```
