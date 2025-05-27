@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'docker:24.0.7-dind' }
+        docker { image 'docker:latest' }
     }
 
     environment {
