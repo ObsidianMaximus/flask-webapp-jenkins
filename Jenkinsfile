@@ -4,15 +4,15 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("flask-webapp:latest")
+                    docker.build("obsidianmaximus/flask-webapp:latest")
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry("https://registry.hub.docker.com/obsidianmaximus", 'docker-credentials-id') {
-                        docker.image("flask-webapp:latest").push()
+                    docker.withRegistry("https://registry.hub.docker.com/", 'docker-credentials-id') {
+                        docker.image("obsidianmaximus/flask-webapp:latest").push()
                     }
                 }
             }
