@@ -29,6 +29,9 @@ Push events from GitHub trigger Jenkins builds via webhooks, ensuring the Docker
 
 ## How it Works
 
+- The Jenkins architecture consists of a Jenkins Master and this master uses docker to create Jenkins Agents as and when required and destroy them when no longer needed, improving the overall cost and performance efficiency of the infrastructure.
+
+![arch](arch.png)
 - When you push to this repository, GitHub sends a notification (webhook) to Jenkins.
 - Jenkins executes the pipeline:
   - Builds the Docker image.
