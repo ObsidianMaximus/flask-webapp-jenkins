@@ -1,43 +1,35 @@
-# Simple Web Application
+# Flask WebApp CI/CD Pipeline with Jenkins
 
-This is a simple web application using [Python Flask](http://flask.pocoo.org/) and [MySQL](https://www.mysql.com/) database. 
-This is used in the demonstration of the development of Ansible Playbooks.
-  
-  Below are the steps required to get this working on a base linux system.
-  
-  - **Install all required dependencies**
-  - **Install and Configure Web Server**
-  - **Start Web Server**
-   
-## 1. Install all required dependencies
-  
-  Python and its dependencies
-  ```bash
-  apt-get install -y python3 python3-setuptools python3-dev build-essential python3-pip default-libmysqlclient-dev
-  ```
-   
-## 2. Install and Configure Web Server
+This repository contains a sample Flask web application set up for automated CI/CD using Jenkins and Docker.  
+Push events from GitHub trigger Jenkins builds via webhooks, ensuring the Docker image is always up-to-date and available on Docker Hub.
 
-Install Python Flask dependency
-```bash
-pip3 install flask
-pip3 install flask-mysql
-```
+## Features
 
-- Copy `app.py` or download it from a source repository
-- Configure database credentials and parameters 
+- **Automatic Build & Deploy:** GitHub webhooks trigger Jenkins to build and push the Docker image.
+- **Continuous Integration:** Every commit is automatically tested and built.
+- **Dockerized:** The app is packaged as a Docker image for consistent deployment.
+- **Public Docker Image:** [obsidianmaximus/flask-webapp on Docker Hub](https://hub.docker.com/r/obsidianmaximus/flask-webapp)
 
-## 3. Start Web Server
+## Quick Start
 
-Start web server
-```bash
-FLASK_APP=app.py flask run --host=0.0.0.0
-```
+1. **Clone this repo:**
+   ```bash
+   git clone https://github.com/ObsidianMaximus/flask-webapp-jenkins.git
+   ```
 
-## 4. Test
+2. **Set up Jenkins:**
+   - Configure a Jenkins pipeline using the `Jenkinsfile` in this repo.
+   - Set up a webhook in your GitHub repository to notify Jenkins on push events.
 
-Open a browser and go to URL
-```
-http://<IP>:5000                            => Welcome
-http://<IP>:5000/how%20are%20you            => I am good, how about you?
-```
+3. **Build & Run Locally:**
+   ```bash
+   docker pull obsidianmaximus/flask-webapp:latest
+   docker run -p 80:8080 obsidianmaximus/flask-webapp:latest
+   ```
+
+## How it Works
+
+- When you push to this repository, GitHub sends a notification (webhook) to Jenkins.
+- Jenkins executes the pipeline:
+  - Builds the Docker image.
+  - Pushes the image to Docker Hub: [`obsidianmaximus/flask-webapp`](https://hub.docker.com/r/obsidianmaximus/flask-webapp).
